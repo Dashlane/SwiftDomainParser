@@ -6,7 +6,7 @@
 //  Copyright © 2018 Dashlane. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for DomainParser.
 FOUNDATION_EXPORT double DomainParserVersionNumber;
