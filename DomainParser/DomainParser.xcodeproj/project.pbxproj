@@ -12,7 +12,6 @@
 		1C75D2022100BCBA0057B32D /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2012100BCBA0057B32D /* Rule.swift */; };
 		1C75D2042100BE040057B32D /* RuleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2032100BE040057B32D /* RuleLabel.swift */; };
 		1C75D2072100C9600057B32D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2062100C9600057B32D /* Constant.swift */; };
-		1C75D2092100CD540057B32D /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2082100CD540057B32D /* Result.swift */; };
 		1C75D20B2100CD700057B32D /* ParsedHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D20A2100CD700057B32D /* ParsedHost.swift */; };
 		1C75D21A2100E1EC0057B32D /* DomainParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C75D2112100E1EB0057B32D /* DomainParser.framework */; };
 		1C75D2282100E2AD0057B32D /* DomainParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D1FD210082740057B32D /* DomainParser.swift */; };
@@ -20,7 +19,6 @@
 		1C75D22A2100E2AD0057B32D /* RuleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2032100BE040057B32D /* RuleLabel.swift */; };
 		1C75D22B2100E2AD0057B32D /* DomainParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CE0026A20FF7AD5008E6415 /* DomainParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C75D22C2100E2AD0057B32D /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1C75D1FB21007F2E0057B32D /* public_suffix_list.dat */; };
-		1C75D22D2100E2AD0057B32D /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2082100CD540057B32D /* Result.swift */; };
 		1C75D22E2100E2AD0057B32D /* ParsedHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D20A2100CD700057B32D /* ParsedHost.swift */; };
 		1C75D22F2100E2AD0057B32D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2062100C9600057B32D /* Constant.swift */; };
 		1C75D2302100E2B20057B32D /* DomainParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE0027520FF7AD5008E6415 /* DomainParserTests.swift */; };
@@ -52,7 +50,6 @@
 		1C75D2012100BCBA0057B32D /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		1C75D2032100BE040057B32D /* RuleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleLabel.swift; sourceTree = "<group>"; };
 		1C75D2062100C9600057B32D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		1C75D2082100CD540057B32D /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		1C75D20A2100CD700057B32D /* ParsedHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedHost.swift; sourceTree = "<group>"; };
 		1C75D2112100E1EB0057B32D /* DomainParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C75D2192100E1EC0057B32D /* DomainParser_macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainParser_macOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +132,6 @@
 				1CE0026A20FF7AD5008E6415 /* DomainParser.h */,
 				1CE0026B20FF7AD5008E6415 /* Info.plist */,
 				1C75D1FB21007F2E0057B32D /* public_suffix_list.dat */,
-				1C75D2082100CD540057B32D /* Result.swift */,
 				1C75D20A2100CD700057B32D /* ParsedHost.swift */,
 				1C75D2062100C9600057B32D /* Constant.swift */,
 			);
@@ -331,7 +327,6 @@
 				1C75D2282100E2AD0057B32D /* DomainParser.swift in Sources */,
 				1C75D2292100E2AD0057B32D /* Rule.swift in Sources */,
 				1C75D22E2100E2AD0057B32D /* ParsedHost.swift in Sources */,
-				1C75D22D2100E2AD0057B32D /* Result.swift in Sources */,
 				1C75D22A2100E2AD0057B32D /* RuleLabel.swift in Sources */,
 				1C75D22F2100E2AD0057B32D /* Constant.swift in Sources */,
 			);
@@ -349,7 +344,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C75D2092100CD540057B32D /* Result.swift in Sources */,
 				1C75D2022100BCBA0057B32D /* Rule.swift in Sources */,
 				1C75D1FE210082740057B32D /* DomainParser.swift in Sources */,
 				1C75D2072100C9600057B32D /* Constant.swift in Sources */,

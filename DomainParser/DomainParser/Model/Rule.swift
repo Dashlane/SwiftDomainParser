@@ -14,13 +14,13 @@ struct Rule {
     /// Is this rule an exception
     let exception: Bool
 
-    /// the raw rule in the PSL format
+    /// The raw rule in the PSL format
     let source: String
 
-    /// labels separated rules
+    /// Labels separated rules
     let parts: [RuleLabel]
 
-    /// Score used to sort the rules. If a URL match multiple rules, the one with the highest Score is Prevailing
+    /// Score used to sort the rules. If a URL match multiple rules, the one with the highest Score is prevailing
     let rankingScore: Int
 
     init(raw: String) {

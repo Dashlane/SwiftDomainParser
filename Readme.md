@@ -10,7 +10,7 @@ This Library allows to know which is the domain name for a given URL.
 
 PSL list all the known public suffix  (like: com, co.uk, nt.edu.au, ...). 
 Without this information we are not able to determine which part of a URL is the domain, Since a suffix can have more than one Label. 
-The PSL includes ICANN (officiel top level domains) but also privates one (like us-east-1.amazonaws.com)
+The PSL includes ICANN (official top level domains) but also privates one (like us-east-1.amazonaws.com)
 
 Examples: 
 
@@ -22,7 +22,7 @@ Examples:
 
 ## Usage 
 
-#### Initilaization: 
+#### Initialization: 
 ```
 import DomainParser
 let domainParse = try DomainParser()
@@ -42,3 +42,7 @@ print(domain) // com
 let suffix = domainParser.parse("awesome.dashlane.co.uk").suffix
 print(domain) // co.uk
 ```
+
+## Misc 
+
+
