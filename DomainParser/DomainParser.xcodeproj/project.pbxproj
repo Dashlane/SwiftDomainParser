@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C75D1FC21007F2E0057B32D /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1C75D1FB21007F2E0057B32D /* public_suffix_list.dat */; };
+		1C4E065F2107547700FEF50B /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1C4E065E2107547700FEF50B /* public_suffix_list.dat */; };
 		1C75D1FE210082740057B32D /* DomainParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D1FD210082740057B32D /* DomainParser.swift */; };
 		1C75D2022100BCBA0057B32D /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2012100BCBA0057B32D /* Rule.swift */; };
 		1C75D2042100BE040057B32D /* RuleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2032100BE040057B32D /* RuleLabel.swift */; };
@@ -18,7 +18,6 @@
 		1C75D2292100E2AD0057B32D /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2012100BCBA0057B32D /* Rule.swift */; };
 		1C75D22A2100E2AD0057B32D /* RuleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2032100BE040057B32D /* RuleLabel.swift */; };
 		1C75D22B2100E2AD0057B32D /* DomainParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CE0026A20FF7AD5008E6415 /* DomainParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C75D22C2100E2AD0057B32D /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1C75D1FB21007F2E0057B32D /* public_suffix_list.dat */; };
 		1C75D22E2100E2AD0057B32D /* ParsedHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D20A2100CD700057B32D /* ParsedHost.swift */; };
 		1C75D22F2100E2AD0057B32D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2062100C9600057B32D /* Constant.swift */; };
 		1C75D2302100E2B20057B32D /* DomainParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE0027520FF7AD5008E6415 /* DomainParserTests.swift */; };
@@ -45,7 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1C75D1FB21007F2E0057B32D /* public_suffix_list.dat */ = {isa = PBXFileReference; lastKnownFileType = text; path = public_suffix_list.dat; sourceTree = "<group>"; };
+		1C4E065E2107547700FEF50B /* public_suffix_list.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = public_suffix_list.dat; sourceTree = "<group>"; };
 		1C75D1FD210082740057B32D /* DomainParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainParser.swift; sourceTree = "<group>"; };
 		1C75D2012100BCBA0057B32D /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		1C75D2032100BE040057B32D /* RuleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleLabel.swift; sourceTree = "<group>"; };
@@ -95,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C4E065D2107547700FEF50B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1C4E065E2107547700FEF50B /* public_suffix_list.dat */,
+			);
+			name = Resources;
+			path = ../../Resources;
+			sourceTree = "<group>";
+		};
 		1C75D2052100BE870057B32D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +139,7 @@
 				1C75D2052100BE870057B32D /* Model */,
 				1CE0026A20FF7AD5008E6415 /* DomainParser.h */,
 				1CE0026B20FF7AD5008E6415 /* Info.plist */,
-				1C75D1FB21007F2E0057B32D /* public_suffix_list.dat */,
+				1C4E065D2107547700FEF50B /* Resources */,
 				1C75D20A2100CD700057B32D /* ParsedHost.swift */,
 				1C75D2062100C9600057B32D /* Constant.swift */,
 			);
@@ -291,7 +299,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C75D22C2100E2AD0057B32D /* public_suffix_list.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C75D1FC21007F2E0057B32D /* public_suffix_list.dat in Resources */,
+				1C4E065F2107547700FEF50B /* public_suffix_list.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1C75D2102100E1EB0057B32D"
-               BuildableName = "DomainParser_macOS.framework"
+               BuildableName = "DomainParser.framework"
                BlueprintName = "DomainParser_macOS"
                ReferencedContainer = "container:DomainParser.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1C75D2102100E1EB0057B32D"
-            BuildableName = "DomainParser_macOS.framework"
+            BuildableName = "DomainParser.framework"
             BlueprintName = "DomainParser_macOS"
             ReferencedContainer = "container:DomainParser.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1C75D2102100E1EB0057B32D"
-            BuildableName = "DomainParser_macOS.framework"
+            BuildableName = "DomainParser.framework"
             BlueprintName = "DomainParser_macOS"
             ReferencedContainer = "container:DomainParser.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1C75D2102100E1EB0057B32D"
-            BuildableName = "DomainParser_macOS.framework"
+            BuildableName = "DomainParser.framework"
             BlueprintName = "DomainParser_macOS"
             ReferencedContainer = "container:DomainParser.xcodeproj">
          </BuildableReference>

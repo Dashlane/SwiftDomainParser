@@ -43,6 +43,10 @@ let suffix = domainParser.parse("awesome.dashlane.co.uk").suffix
 print(domain) // co.uk
 ```
 
-## Misc 
+## Update the Public Suffist List 
+In the `script` folder, run: 
+``` 
+swift UpdatePSL.swift 
+```
 
 
