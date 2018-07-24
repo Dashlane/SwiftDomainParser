@@ -17,3 +17,4 @@ struct Constant {
 }
 
 typealias C = Constant
+
