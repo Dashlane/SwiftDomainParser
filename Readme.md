@@ -38,9 +38,9 @@ print(domain) // dashlane.com
 
 ``` 
 let suffix = domainParser.parse("awesome.dashlane.com").suffix
-print(domain) // com
+print(suffix) // com
 let suffix = domainParser.parse("awesome.dashlane.co.uk").suffix
-print(domain) // co.uk
+print(suffix) // co.uk
 ```
 
 ## Update the Public Suffist List 
