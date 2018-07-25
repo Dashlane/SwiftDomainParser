@@ -54,13 +54,23 @@ extension Rule {
         let trimmedHostLabels = hostLabels.dropFirst(delta)
 
         let zipped = zip(self.parts, trimmedHostLabels)
-
-        let matching = zipped.allSatisfy { (tuple) -> Bool in
-            let (ruleComponent, hostComponent) = tuple
+        /// Closure that check if a RuleLabel match a given string
+        let matchingClosure:(RuleLabel, String) -> Bool = {ruleComponent, hostComponent in
             return ruleComponent.isMatching(label: hostComponent)
         }
-        return matching
+        
+        #if swift(>=4.2)
+        return zipped.allSatisfy(matchingClosure)
+        #else
+        let notMatchingClosure:(RuleLabel, String) -> Bool = { ruleComponent, hostComponent in
+            return !matchingClosure(ruleComponent, hostComponent)
+        }
+        return !zipped.contains(where: notMatchingClosure)
+        #endif
+        
+       // return matching
     }
+        
 
     /// ⚠️ Should be called only for host matching the rule
     func parse(hostLabels: [String]) -> ParsedHost {
