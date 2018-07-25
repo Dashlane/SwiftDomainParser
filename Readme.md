@@ -2,7 +2,7 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 
-A full-swift library which allows to parse host to detect domain name, and public suffix, using the [Public Suffix List](https://publicsuffix.org)
+A full-swift simple library which allows to parse host to parse hostnames, and public suffix, using the [Public Suffix List](https://publicsuffix.org)
 
 This Library allows to know which is the domain name for a given URL. 
 
