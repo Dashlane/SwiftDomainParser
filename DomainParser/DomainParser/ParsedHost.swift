@@ -10,8 +10,8 @@ import Foundation
 
 public struct ParsedHost {
 
-    let publicSuffix: String
+    public let publicSuffix: String
     /// Domain excluding subdomains
-    let domain: String?
+    public let domain: String?
 
 }
