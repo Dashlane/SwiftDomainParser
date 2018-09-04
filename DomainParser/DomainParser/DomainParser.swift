@@ -14,18 +14,36 @@ enum DomainParserError: Error {
 
 /// Uses the public suffix list
 public struct DomainParser {
-    private let rules: [Rule]
-
+    
+    let parsedRules: ParsedRules
+    
+    let onlyBasicRules: Bool
+    
+    let basicRulesParser: BasicRulesParser
+    
     /// Parse the `public_suffix_list` file and build the set of Rules
-    public init() throws {
+    /// Parameters:
+    ///   - QuickParsing: IF true, the `exception` and `wildcard` rules will be ignored
+    public init(quickParsing: Bool = false) throws {
         let url = Bundle.current.url(forResource: "public_suffix_list", withExtension: "dat")!
         let data = try Data(contentsOf: url)
-        rules = try RulesParser.parse(raw: data)
+        parsedRules = try RulesParser().parse(raw: data)
+        basicRulesParser = BasicRulesParser(suffixes: parsedRules.basicRules)
+        onlyBasicRules = quickParsing
     }
 
     public func parse(host: String) -> ParsedHost? {
+        if onlyBasicRules {
+            return basicRulesParser.parse(host: host)
+        } else {
+            return parseExceptionsAndWildCardRules(host: host) ??  basicRulesParser.parse(host: host)
+        }
+     }
+    
+    func parseExceptionsAndWildCardRules(host: String) -> ParsedHost? {
         let hostComponents = host.components(separatedBy: ".")
-        let rule = rules.first { $0.isMatching(hostLabels: hostComponents) }
+        let isMatching: (Rule) -> Bool =  { $0.isMatching(hostLabels: hostComponents) }
+        let rule = parsedRules.exceptions.first(where: isMatching) ?? parsedRules.wildcardRules.first(where: isMatching)
         return rule?.parse(hostLabels: hostComponents)
     }
 }
@@ -38,34 +56,8 @@ private extension Bundle {
     }
 }
 
-/// Helper
-private struct RulesParser {
-
-    /// Parse the Data to extract an array of Rules. The array is sorted by importance.
-    static func parse(raw: Data) throws -> [Rule] {
-        guard let rulesText = String(data: raw, encoding: .utf8) else {
-            throw DomainParserError.parsingError(details: nil)
-        }
-        return rulesText
-            .components(separatedBy: .newlines)
-            .compactMap(parseRule)
-            .sorted()
-            .reversed()
-    }
-
-    private static func parseRule(line: String) -> Rule? {
-        /// From `publicsuffix.org/list/` Each line is only read up to the first whitespace; entire lines can also be commented using //.
-        guard let trimmedLine = line.components(separatedBy: .whitespaces).first,
-            !trimmedLine.isComment && !trimmedLine.isEmpty else { return nil }
-        return Rule(raw: trimmedLine)
-
-    }
-}
-
-private extension String {
-
-    /// A line starting by "//" is a comment and should be ignored
-    var isComment: Bool {
-        return self.starts(with: C.commentMarker)
-    }
+struct ParsedRules {
+    let exceptions: [Rule]
+    let wildcardRules: [Rule]
+    let basicRules: Set<String>
 }
