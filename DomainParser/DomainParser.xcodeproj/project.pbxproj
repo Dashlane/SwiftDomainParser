@@ -24,6 +24,7 @@
 		1CE0027120FF7AD5008E6415 /* DomainParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CE0026720FF7AD5008E6415 /* DomainParser.framework */; };
 		1CE0027620FF7AD5008E6415 /* DomainParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE0027520FF7AD5008E6415 /* DomainParserTests.swift */; };
 		1CE0027820FF7AD5008E6415 /* DomainParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CE0026A20FF7AD5008E6415 /* DomainParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7F9173B22132FC5001A36DC /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1C4E065E2107547700FEF50B /* public_suffix_list.dat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7F9173B22132FC5001A36DC /* public_suffix_list.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
