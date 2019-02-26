@@ -21,6 +21,9 @@
 		1C75D22E2100E2AD0057B32D /* ParsedHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D20A2100CD700057B32D /* ParsedHost.swift */; };
 		1C75D22F2100E2AD0057B32D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2062100C9600057B32D /* Constant.swift */; };
 		1C75D2302100E2B20057B32D /* DomainParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE0027520FF7AD5008E6415 /* DomainParserTests.swift */; };
+		1C7FFE67213F295700538E0B /* BasicRulesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FFE66213F295700538E0B /* BasicRulesParser.swift */; };
+		1C7FFE68213F295F00538E0B /* BasicRulesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FFE66213F295700538E0B /* BasicRulesParser.swift */; };
+		1C7FFE6A213F299100538E0B /* RulesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FFE69213F299100538E0B /* RulesParser.swift */; };
 		1CE0027120FF7AD5008E6415 /* DomainParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CE0026720FF7AD5008E6415 /* DomainParser.framework */; };
 		1CE0027620FF7AD5008E6415 /* DomainParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE0027520FF7AD5008E6415 /* DomainParserTests.swift */; };
 		1CE0027820FF7AD5008E6415 /* DomainParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CE0026A20FF7AD5008E6415 /* DomainParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,6 +56,8 @@
 		1C75D20A2100CD700057B32D /* ParsedHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedHost.swift; sourceTree = "<group>"; };
 		1C75D2112100E1EB0057B32D /* DomainParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C75D2192100E1EC0057B32D /* DomainParser_macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainParser_macOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C7FFE66213F295700538E0B /* BasicRulesParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicRulesParser.swift; sourceTree = "<group>"; };
+		1C7FFE69213F299100538E0B /* RulesParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesParser.swift; sourceTree = "<group>"; };
 		1CE0026720FF7AD5008E6415 /* DomainParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DomainParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE0026A20FF7AD5008E6415 /* DomainParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DomainParser.h; sourceTree = "<group>"; };
 		1CE0026B20FF7AD5008E6415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,7 +141,9 @@
 		1CE0026920FF7AD5008E6415 /* DomainParser */ = {
 			isa = PBXGroup;
 			children = (
+				1C7FFE66213F295700538E0B /* BasicRulesParser.swift */,
 				1C75D1FD210082740057B32D /* DomainParser.swift */,
+				1C7FFE69213F299100538E0B /* RulesParser.swift */,
 				1C75D2052100BE870057B32D /* Model */,
 				1CE0026A20FF7AD5008E6415 /* DomainParser.h */,
 				1CE0026B20FF7AD5008E6415 /* Info.plist */,
@@ -338,6 +345,7 @@
 				1C75D22E2100E2AD0057B32D /* ParsedHost.swift in Sources */,
 				1C75D22A2100E2AD0057B32D /* RuleLabel.swift in Sources */,
 				1C75D22F2100E2AD0057B32D /* Constant.swift in Sources */,
+				1C7FFE68213F295F00538E0B /* BasicRulesParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +364,8 @@
 				1C75D2022100BCBA0057B32D /* Rule.swift in Sources */,
 				1C75D1FE210082740057B32D /* DomainParser.swift in Sources */,
 				1C75D2072100C9600057B32D /* Constant.swift in Sources */,
+				1C7FFE6A213F299100538E0B /* RulesParser.swift in Sources */,
+				1C7FFE67213F295700538E0B /* BasicRulesParser.swift in Sources */,
 				1C75D2042100BE040057B32D /* RuleLabel.swift in Sources */,
 				1C75D20B2100CD700057B32D /* ParsedHost.swift in Sources */,
 			);

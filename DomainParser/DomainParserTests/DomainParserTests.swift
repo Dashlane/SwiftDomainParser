@@ -22,6 +22,13 @@ class DomainParserTests: XCTestCase {
             _ = try! DomainParser()
         }
     }
+    
+    func testMeasureParser() {
+        self.measure {
+            testPSL()
+        }
+    }
+    
 
     /// Common PSL Unit test. For a given host check if it returns the expected registrable domain
     /// Source: https://raw.githubusercontent.com/publicsuffix/list/master/tests/test_psl.txt
@@ -124,3 +131,4 @@ class DomainParserTests: XCTestCase {
         XCTAssertEqual(domainParser.parse(host: host.lowercased())?.domain, expectedDomain, file: file, line: line)
     }
 }
+
