@@ -69,7 +69,7 @@ struct PublicSuffixListMinimifier {
 func main() {
     let sema = DispatchSemaphore( value: 0)
 
-    let fileRelativePath = "../Resources/public_suffix_list.dat"
+    let fileRelativePath = "../Sources/DomainParser/Resources/public_suffix_list.dat"
     PublicSuffistListFetcher().load() { result in
         defer {
             sema.signal()

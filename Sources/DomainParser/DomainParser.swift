@@ -52,7 +52,7 @@ private extension Bundle {
 
     static var current: Bundle {
         class ClassInCurrentBundle {}
-        return Bundle.init(for: ClassInCurrentBundle.self)
+        return Bundle.module
     }
 }
 
