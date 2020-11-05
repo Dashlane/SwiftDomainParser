@@ -25,7 +25,7 @@ public struct DomainParser {
     /// Parameters:
     ///   - QuickParsing: IF true, the `exception` and `wildcard` rules will be ignored
     public init(quickParsing: Bool = false) throws {
-        let url = Bundle.current.url(forResource: "public_suffix_list", withExtension: "dat")!
+        let url = Bundle.module.url(forResource: "public_suffix_list", withExtension: "dat")!
         let data = try Data(contentsOf: url)
         parsedRules = try RulesParser().parse(raw: data)
         basicRulesParser = BasicRulesParser(suffixes: parsedRules.basicRules)
@@ -45,14 +45,6 @@ public struct DomainParser {
         let isMatching: (Rule) -> Bool =  { $0.isMatching(hostLabels: hostComponents) }
         let rule = parsedRules.exceptions.first(where: isMatching) ?? parsedRules.wildcardRules.first(where: isMatching)
         return rule?.parse(hostLabels: hostComponents)
-    }
-}
-
-private extension Bundle {
-
-    static var current: Bundle {
-        class ClassInCurrentBundle {}
-        return Bundle.module
     }
 }
 
