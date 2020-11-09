@@ -51,8 +51,12 @@ public struct DomainParser {
 private extension Bundle {
 
     static var current: Bundle {
+        #if SWIFT_PACKAGE
+        return Bundle.module
+        #else
         class ClassInCurrentBundle {}
         return Bundle.init(for: ClassInCurrentBundle.self)
+        #endif
     }
 }
 
