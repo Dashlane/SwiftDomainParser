@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C4E065F2107547700FEF50B /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1C4E065E2107547700FEF50B /* public_suffix_list.dat */; };
 		1C75D1FE210082740057B32D /* DomainParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D1FD210082740057B32D /* DomainParser.swift */; };
 		1C75D2022100BCBA0057B32D /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2012100BCBA0057B32D /* Rule.swift */; };
 		1C75D2042100BE040057B32D /* RuleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C75D2032100BE040057B32D /* RuleLabel.swift */; };
@@ -27,8 +26,9 @@
 		1CE0027120FF7AD5008E6415 /* DomainParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CE0026720FF7AD5008E6415 /* DomainParser.framework */; };
 		1CE0027620FF7AD5008E6415 /* DomainParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE0027520FF7AD5008E6415 /* DomainParserTests.swift */; };
 		1CE0027820FF7AD5008E6415 /* DomainParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CE0026A20FF7AD5008E6415 /* DomainParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		93B3C99425598A19007A6674 /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 93B3C99325598A19007A6674 /* public_suffix_list.dat */; };
+		93B3C99525598A19007A6674 /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 93B3C99325598A19007A6674 /* public_suffix_list.dat */; };
 		A75E495E22259C4B00B3C15A /* RulesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FFE69213F299100538E0B /* RulesParser.swift */; };
-		A7F9173B22132FC5001A36DC /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 1C4E065E2107547700FEF50B /* public_suffix_list.dat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +49,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1C4E065E2107547700FEF50B /* public_suffix_list.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = public_suffix_list.dat; sourceTree = "<group>"; };
 		1C75D1FD210082740057B32D /* DomainParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainParser.swift; sourceTree = "<group>"; };
 		1C75D2012100BCBA0057B32D /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		1C75D2032100BE040057B32D /* RuleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleLabel.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		1CE0027020FF7AD5008E6415 /* DomainParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE0027520FF7AD5008E6415 /* DomainParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainParserTests.swift; sourceTree = "<group>"; };
 		1CE0027720FF7AD5008E6415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93B3C99325598A19007A6674 /* public_suffix_list.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = public_suffix_list.dat; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,15 +101,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1C4E065D2107547700FEF50B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				1C4E065E2107547700FEF50B /* public_suffix_list.dat */,
-			);
-			name = Resources;
-			path = ../../Resources;
-			sourceTree = "<group>";
-		};
 		1C75D2052100BE870057B32D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,9 +139,9 @@
 				1C75D2052100BE870057B32D /* Model */,
 				1CE0026A20FF7AD5008E6415 /* DomainParser.h */,
 				1CE0026B20FF7AD5008E6415 /* Info.plist */,
-				1C4E065D2107547700FEF50B /* Resources */,
 				1C75D20A2100CD700057B32D /* ParsedHost.swift */,
 				1C75D2062100C9600057B32D /* Constant.swift */,
+				93B3C98F255989FA007A6674 /* Resources */,
 			);
 			path = DomainParser;
 			sourceTree = "<group>";
@@ -162,6 +153,14 @@
 				1CE0027720FF7AD5008E6415 /* Info.plist */,
 			);
 			path = DomainParserTests;
+			sourceTree = "<group>";
+		};
+		93B3C98F255989FA007A6674 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				93B3C99325598A19007A6674 /* public_suffix_list.dat */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,7 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7F9173B22132FC5001A36DC /* public_suffix_list.dat in Resources */,
+				93B3C99525598A19007A6674 /* public_suffix_list.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +323,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C4E065F2107547700FEF50B /* public_suffix_list.dat in Resources */,
+				93B3C99425598A19007A6674 /* public_suffix_list.dat in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

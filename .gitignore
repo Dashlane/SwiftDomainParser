@@ -3,5 +3,6 @@
 fastlane/report.xml
 fastlane/test_output
 .idea/
+.build/
 .DS_Store
 /Carthage/
