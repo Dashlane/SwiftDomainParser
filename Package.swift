@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "DomainParser",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v12),
         .macOS(.v10_14)
     ],
     products: [
