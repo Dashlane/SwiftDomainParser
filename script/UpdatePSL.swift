@@ -20,7 +20,7 @@ enum Result<T> {
 
 struct PublicSuffistListFetcher {
     typealias PublicSuffistListClosure = (Result<Data>) -> Void
-    
+
     static let url = URL(string: "https://publicsuffix.org/list/public_suffix_list.dat")!
     func load(callback: @escaping PublicSuffistListClosure) {
         URLSession.shared.dataTask(with: PublicSuffistListFetcher.url) { (data, _, error) in
@@ -37,10 +37,10 @@ struct PublicSuffistListFetcher {
 }
 
 struct PublicSuffixListMinimifier {
-    
-    
+
+
     let data: Data
-    
+
     init(data: Data) {
         self.data = data
     }
@@ -48,16 +48,16 @@ struct PublicSuffixListMinimifier {
     func isLineValid(line: String) -> Bool {
         return !line.isEmpty && !line.starts(with: "//")
     }
-    
+
     func minimify() throws -> Data {
         guard let stringifiedData = String.init(data: data, encoding: .utf8) else { throw ErrorType.notUTF8Convertible(data: data) }
-        
+
         let validLinesArray = stringifiedData.components(separatedBy: .newlines)
             .map { $0.trimmingCharacters(in: CharacterSet.whitespaces) }
             .compactMap { $0.components(separatedBy: CharacterSet.whitespaces).first }
             /// Filter out useless Lines (Comments or empty ones)
             .filter(isLineValid)
-        
+
         return validLinesArray.joined(separator: "\n").data(using: .utf8)!
     }
 }
@@ -69,7 +69,7 @@ struct PublicSuffixListMinimifier {
 func main() {
     let sema = DispatchSemaphore( value: 0)
 
-    let fileRelativePath = "../Resources/public_suffix_list.dat"
+    let fileRelativePath = "../DomainParser/DomainParser/Resources/public_suffix_list.dat"
     PublicSuffistListFetcher().load() { result in
         defer {
             sema.signal()
@@ -81,7 +81,7 @@ func main() {
             do {
                 try data.write(to: url)
                 print("Done :)")
-                
+
             }
             catch { showError(error: error) }
         case let .error(error):
