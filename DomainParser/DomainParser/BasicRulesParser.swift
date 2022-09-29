@@ -16,7 +16,7 @@ public struct BasicRulesParser {
     }
     public func parse(host: String) -> ParsedHost? {
         let lowercasedHost = host.lowercased()
-        let hostComponents = lowercasedHost.components(separatedBy: ".")
+        let hostComponents = lowercasedHost.split(separator: ".")
         var hostSlices = ArraySlice(hostComponents)
         
         /// A host must have at least two parts else it's a TLD

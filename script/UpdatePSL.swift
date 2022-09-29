@@ -44,7 +44,8 @@ struct PublicSuffixListMinimifier {
     init(data: Data) {
         self.data = data
     }
-    // A valid line is a non-empty, non-comment line
+
+    /// A valid line is a non-empty, non-comment line
     func isLineValid(line: String) -> Bool {
         return !line.isEmpty && !line.starts(with: "//")
     }
@@ -52,6 +53,7 @@ struct PublicSuffixListMinimifier {
     func minimify() throws -> Data {
         guard let stringifiedData = String.init(data: data, encoding: .utf8) else { throw ErrorType.notUTF8Convertible(data: data) }
 
+        //  From `publicsuffix.org/list/` Each line is only read up to the first whitespace; entire lines can also be commented using //.
         let validLinesArray = stringifiedData.components(separatedBy: .newlines)
             .map { $0.trimmingCharacters(in: CharacterSet.whitespaces) }
             .compactMap { $0.components(separatedBy: CharacterSet.whitespaces).first }

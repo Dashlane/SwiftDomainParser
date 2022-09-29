@@ -22,24 +22,20 @@ class RulesParser {
             throw DomainParserError.parsingError(details: nil)
         }
         rulesText
-            .components(separatedBy: .newlines)
+            .split(separator: "\n")
             .forEach(parseRule)
         return ParsedRules.init(exceptions: exceptions,
                                 wildcardRules: wildcardRules,
                                 basicRules: basicRules)
     }
-    
-    private func parseRule(line: String) {
-        guard let trimmedLine = line.components(separatedBy: .whitespaces).first,
-            !trimmedLine.isComment && !trimmedLine.isEmpty else { return }
-        
-        /// From `publicsuffix.org/list/` Each line is only read up to the first whitespace; entire lines can also be commented using //.
-        if trimmedLine.contains("*") {
-            wildcardRules.append(Rule(raw: trimmedLine))
-        } else if trimmedLine.starts(with: "!") {
-            exceptions.append(Rule(raw: trimmedLine))
+
+    private func parseRule(line: Substring) {
+        if line.contains("*") {
+            wildcardRules.append(Rule(raw: line))
+        } else if line.starts(with: "!") {
+            exceptions.append(Rule(raw: line))
         } else {
-            basicRules.insert(trimmedLine)
+            basicRules.insert(String(line))
         }
     }
 }
