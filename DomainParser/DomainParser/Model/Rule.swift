@@ -23,12 +23,12 @@ struct Rule {
     /// Score used to sort the rules. If a URL match multiple rules, the one with the highest Score is prevailing
     let rankingScore: Int
 
-    init(raw: String) {
+    init(raw: Substring) {
 
         /// If the line starts with "!" it's an exceptional Rule
         exception = raw.starts(with: C.exceptionMarker)
-        source = exception ? String(raw.dropFirst()) : raw
-        parts = source.components(separatedBy: ".").map(RuleLabel.init)
+        source = exception ? String(raw.dropFirst()) : String(raw)
+        parts = source.split(separator: ".").map(RuleLabel.init)
 
         /// Exceptions should have a higher Rank than regular rules
         rankingScore = (exception ? 1000 : 0) + parts.count
@@ -44,7 +44,7 @@ extension Rule {
     /// - Beginning with the right-most labels of both the domain and the rule,
     ///     and continuing for all labels in the rule, one finds that for every pair,
     ///     either they are identical, or that the label from the rule is "*".
-    func isMatching(hostLabels: [String]) -> Bool {
+    func isMatching(hostLabels: [Substring]) -> Bool {
         let delta = hostLabels.count - self.parts.count
 
         /// The url should have at least the same number of labels than the url
@@ -55,7 +55,7 @@ extension Rule {
 
         let zipped = zip(self.parts, trimmedHostLabels)
         /// Closure that check if a RuleLabel match a given string
-        let matchingClosure:(RuleLabel, String) -> Bool = {ruleComponent, hostComponent in
+        let matchingClosure:(RuleLabel, Substring) -> Bool = {ruleComponent, hostComponent in
             return ruleComponent.isMatching(label: hostComponent)
         }
         
@@ -73,7 +73,7 @@ extension Rule {
         
 
     /// ⚠️ Should be called only for host matching the rule
-    func parse(hostLabels: [String]) -> ParsedHost {
+    func parse(hostLabels: [Substring]) -> ParsedHost {
         let partsCount =  parts.count - (self.exception ? 1 : 0)
         let delta = hostLabels.count - partsCount
 

@@ -41,7 +41,7 @@ public struct DomainParser {
      }
     
     func parseExceptionsAndWildCardRules(host: String) -> ParsedHost? {
-        let hostComponents = host.components(separatedBy: ".")
+        let hostComponents = host.split(separator: ".")
         let isMatching: (Rule) -> Bool =  { $0.isMatching(hostLabels: hostComponents) }
         let rule = parsedRules.exceptions.first(where: isMatching) ?? parsedRules.wildcardRules.first(where: isMatching)
         return rule?.parse(hostLabels: hostComponents)
