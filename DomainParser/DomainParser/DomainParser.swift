@@ -13,7 +13,7 @@ enum DomainParserError: Error {
 }
 
 /// Uses the public suffix list
-public struct DomainParser {
+public struct DomainParser: DomainParserProtocol {
     
     let parsedRules: ParsedRules
     
