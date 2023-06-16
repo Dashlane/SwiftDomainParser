@@ -36,7 +36,7 @@ public struct DomainParser: DomainParserProtocol {
         if onlyBasicRules {
             return basicRulesParser.parse(host: host)
         } else {
-            return parseExceptionsAndWildCardRules(host: host) ??  basicRulesParser.parse(host: host)
+            return parseExceptionsAndWildCardRules(host: host) ?? basicRulesParser.parse(host: host)
         }
      }
     
