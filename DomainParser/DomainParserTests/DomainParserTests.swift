@@ -130,5 +130,55 @@ class DomainParserTests: XCTestCase {
         guard let host = host else { return }
         XCTAssertEqual(domainParser.parse(host: host.lowercased())?.domain, expectedDomain, file: file, line: line)
     }
+
+
+    func testWildcardRulesSorting() {
+        // From https://github.com/publicsuffix/list/wiki/Format#example
+        let rulesArray = [
+            "com",
+            "*.jp",
+            "*.hokkaido.jp",
+            "*.tokyo.jp",
+            "!pref.hokkaido.jp",
+            "!metro.tokyo.jp",
+        ]
+
+        let rulesText = rulesArray.joined(separator: "\n")
+        let rulesData = rulesText.data(using: .utf8)!
+        let customDomainParser = try! DomainParser.init(rulesData: rulesData)
+
+        // Just checking that we are using a custom suffix rule set. This would be a valid domain normally.
+        XCTAssertNil(customDomainParser.parse(host: "google.fr")?.domain)
+
+
+        // From https://github.com/publicsuffix/list/wiki/Format#example
+
+        // Cookies may be set for foo.com. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.com")?.domain, "foo.com")
+
+        // Cookies may be set for foo.bar.jp. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.bar.jp")?.domain, "foo.bar.jp")
+
+        // Cookies may *not* be set for bar.jp. (not valid domain)
+        XCTAssertNil(customDomainParser.parse(host: "bar.jp")?.domain)
+
+        // Cookies may be set for foo.bar.hokkaido.jp. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.bar.hokkaido.jp")?.domain, "foo.bar.hokkaido.jp")
+
+        // Cookies may *not* be set for bar.hokkaido.jp. (not valid domain)
+        XCTAssertNil(customDomainParser.parse(host: "bar.hokkaido.jp")?.domain)
+
+        // Cookies may be set for foo.bar.tokyo.jp. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.bar.tokyo.jp")?.domain, "foo.bar.tokyo.jp")
+
+        // Cookies may *not* be set for bar.tokyo.jp. (not valid domain)
+        XCTAssertNil(customDomainParser.parse(host: "bar.tokyo.jp")?.domain)
+        
+        // Cookies may be set for pref.hokkaido.jp because the exception overrides the previous rule. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "pref.hokkaido.jp")?.domain, "pref.hokkaido.jp")
+
+        // Cookies may be set for metro.tokyo.jp, because the exception overrides the previous rule. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "metro.tokyo.jp")?.domain, "metro.tokyo.jp")
+    }
 }
 

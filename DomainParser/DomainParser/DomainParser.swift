@@ -27,7 +27,12 @@ public struct DomainParser: DomainParserProtocol {
     public init(quickParsing: Bool = false) throws {
         let url = Bundle.current.url(forResource: "public_suffix_list", withExtension: "dat")!
         let data = try Data(contentsOf: url)
-        parsedRules = try RulesParser().parse(raw: data)
+        
+        try self.init(rulesData: data, quickParsing: quickParsing)
+    }
+
+    init(rulesData: Data, quickParsing: Bool = false) throws {
+        parsedRules = try RulesParser().parse(raw: rulesData)
         basicDomainParser = BasicDomainParser(suffixes: parsedRules.basicRules)
         onlyBasicRules = quickParsing
     }

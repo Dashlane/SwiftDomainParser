@@ -30,6 +30,11 @@ class RulesParser {
         rulesText
             .split(separator: "\n")
             .forEach(parseRule)
+
+        // Sort the collections from big to small so that the highest priority rules are first.
+        self.wildcardRules.sort(by: { $0 > $1 } )
+        self.exceptions.sort(by: { $0 > $1 } )
+
         return ParsedRules.init(exceptions: exceptions,
                                 wildcardRules: wildcardRules,
                                 basicRules: basicRules)
