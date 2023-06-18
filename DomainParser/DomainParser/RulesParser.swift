@@ -45,11 +45,3 @@ class RulesParser {
         }
     }
 }
-
-private extension String {
-    
-    /// A line starting by "//" is a comment and should be ignored
-    var isComment: Bool {
-        return self.starts(with: C.commentMarker)
-    }
-}
