@@ -59,9 +59,3 @@ private extension Bundle {
         #endif
     }
 }
-
-struct ParsedRules {
-    let exceptions: [Rule]
-    let wildcardRules: [Rule]
-    let basicRules: Set<String>
-}

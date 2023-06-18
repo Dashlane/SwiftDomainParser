@@ -9,6 +9,12 @@
 import Foundation
 
 
+struct ParsedRules {
+    let exceptions: [Rule]
+    let wildcardRules: [Rule]
+    let basicRules: Set<String>
+}
+
 class RulesParser {
     
     var exceptions = [Rule]()
