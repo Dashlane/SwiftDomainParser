@@ -19,7 +19,7 @@ public struct DomainParser: DomainParserProtocol {
     
     let onlyBasicRules: Bool
     
-    let basicRulesParser: BasicRulesParser
+    let basicDomainParser: BasicDomainParser
     
     /// Parse the `public_suffix_list` file and build the set of Rules
     /// Parameters:
@@ -28,15 +28,15 @@ public struct DomainParser: DomainParserProtocol {
         let url = Bundle.current.url(forResource: "public_suffix_list", withExtension: "dat")!
         let data = try Data(contentsOf: url)
         parsedRules = try RulesParser().parse(raw: data)
-        basicRulesParser = BasicRulesParser(suffixes: parsedRules.basicRules)
+        basicDomainParser = BasicDomainParser(suffixes: parsedRules.basicRules)
         onlyBasicRules = quickParsing
     }
 
     public func parse(host: String) -> ParsedHost? {
         if onlyBasicRules {
-            return basicRulesParser.parse(host: host)
+            return basicDomainParser.parse(host: host)
         } else {
-            return parseExceptionsAndWildCardRules(host: host) ??  basicRulesParser.parse(host: host)
+            return parseExceptionsAndWildCardRules(host: host) ?? basicDomainParser.parse(host: host)
         }
      }
     

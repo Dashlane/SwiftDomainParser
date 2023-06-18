@@ -1,5 +1,5 @@
 //
-//  BasicRuleParser.swift
+//  BasicDomainParser.swift
 //  DomainParser
 //
 //  Created by Jason Akakpo on 04/09/2018.
@@ -8,12 +8,16 @@
 
 import Foundation
 
-public struct BasicRulesParser {
+
+/// This class can parse a hostname only according to basic suffix rules (no wildcards or exceptions).
+/// Examples of valid rules: **com**, **co.uk**, **ide.kyoto.jp**
+public struct BasicDomainParser: DomainParserProtocol {
     
     let suffixes: Set<String>
     init(suffixes: Set<String>) {
         self.suffixes = suffixes
     }
+
     public func parse(host: String) -> ParsedHost? {
         let lowercasedHost = host.lowercased()
         let hostComponents = lowercasedHost.split(separator: ".")
