@@ -19,9 +19,6 @@ public struct BasicRulesParser {
         let hostComponents = lowercasedHost.split(separator: ".")
         var hostSlices = ArraySlice(hostComponents)
         
-        /// A host must have at least two parts else it's a TLD
-        guard hostSlices.count > 1 else { return nil }
-        
         var candidateSuffix = ""
         
         /// Check if the host ends with a suffix in the set
