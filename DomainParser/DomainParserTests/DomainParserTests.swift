@@ -28,6 +28,38 @@ class DomainParserTests: XCTestCase {
             testPSL()
         }
     }
+
+    func testMeasureParseManyWildcardAndExceptionRules() {
+        let alphabet = "abcdefghijklmnopqrstuvwxyz"
+        var rulesArray: [String] = []
+
+        // Add a lot of wildcard and exception rules.
+        for letter1 in alphabet {
+            for letter2 in alphabet {
+                rulesArray.append("*.\(letter1)\(letter2)")
+                rulesArray.append("!except.\(letter1)\(letter2)")
+            }
+        }
+
+        let rulesText = rulesArray.joined(separator: "\n")
+        let rulesData = rulesText.data(using: .utf8)!
+        let customDomainParser = try! DomainParser.init(rulesData: rulesData)
+
+        // Just checking that we are using a custom suffix rule set. This would be a valid domain normally.
+        XCTAssertNil(customDomainParser.parse(host: "google.fr")?.domain)
+
+
+        self.measure {
+            for _ in 0...10 {
+                XCTAssertEqual(customDomainParser.parse(host: "domain.any.ky")?.domain, "domain.any.ky")
+                XCTAssertEqual(customDomainParser.parse(host: "except.ky")?.domain, "except.ky")
+                XCTAssertEqual(customDomainParser.parse(host: "domain.any.tz")?.domain, "domain.any.tz")
+                XCTAssertEqual(customDomainParser.parse(host: "except.tz")?.domain, "except.tz")
+                XCTAssertEqual(customDomainParser.parse(host: "domain.any.nf")?.domain, "domain.any.nf")
+                XCTAssertEqual(customDomainParser.parse(host: "except.nf")?.domain, "except.nf")
+            }
+        }
+    }
     
 
     /// Common PSL Unit test. For a given host check if it returns the expected registrable domain

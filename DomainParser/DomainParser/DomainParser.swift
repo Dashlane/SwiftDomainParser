@@ -47,8 +47,20 @@ public struct DomainParser: DomainParserProtocol {
     
     func parseExceptionsAndWildCardRules(host: String) -> ParsedHost? {
         let hostComponents = host.split(separator: ".")
-        let isMatching: (Rule) -> Bool =  { $0.isMatching(hostLabels: hostComponents) }
-        let rule = parsedRules.exceptions.first(where: isMatching) ?? parsedRules.wildcardRules.first(where: isMatching)
+        guard let lastLabelSubstring = hostComponents.last else {
+            return nil
+        }
+
+        let lastLabel = String(lastLabelSubstring)
+        var wildcardRulesForLabel: [Rule] = []
+        wildcardRulesForLabel.append(contentsOf: parsedRules.wildcardRules[lastLabel] ?? [])
+        wildcardRulesForLabel.append(contentsOf: parsedRules.wildcardRules["*"] ?? [])
+        wildcardRulesForLabel.sort(by: { $0 > $1 })
+
+        let isMatching: (Rule) -> Bool = { $0.isMatching(hostLabels: hostComponents) }
+        let rule = parsedRules.exceptions[lastLabel]?.first(where: isMatching) ??
+                   wildcardRulesForLabel.first(where: isMatching)
+
         return rule?.parse(hostLabels: hostComponents)
     }
 }

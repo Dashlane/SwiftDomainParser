@@ -10,15 +10,15 @@ import Foundation
 
 
 struct ParsedRules {
-    let exceptions: [Rule]
-    let wildcardRules: [Rule]
+    let exceptions: Dictionary<String, Array<Rule>>
+    let wildcardRules: Dictionary<String, Array<Rule>>
     let basicRules: Set<String>
 }
 
 class RulesParser {
     
-    var exceptions = [Rule]()
-    var wildcardRules = [Rule]()
+    var exceptions = Dictionary<String, Array<Rule>>()
+    var wildcardRules = Dictionary<String, Array<Rule>>()
     /// Set of suffixes
     var basicRules = Set<String>()
     
@@ -32,8 +32,10 @@ class RulesParser {
             .forEach(parseRule)
 
         // Sort the collections from big to small so that the highest priority rules are first.
-        self.wildcardRules.sort(by: { $0 > $1 } )
-        self.exceptions.sort(by: { $0 > $1 } )
+        let ruleComparator = { (r1: Rule, r2: Rule) -> Bool in r1 > r2 }
+        let sortRulesTransform = { (rules: Array<Rule>) -> Array<Rule> in rules.sorted(by: ruleComparator) }
+        self.wildcardRules = self.wildcardRules.mapValues(sortRulesTransform)
+        self.exceptions = self.exceptions.mapValues(sortRulesTransform)
 
         return ParsedRules.init(exceptions: exceptions,
                                 wildcardRules: wildcardRules,
@@ -42,9 +44,11 @@ class RulesParser {
 
     private func parseRule(line: Substring) {
         if line.contains("*") {
-            wildcardRules.append(Rule(raw: line))
+            let rule = Rule(raw: line)
+            wildcardRules[rule.getLastLabel(), default: []].append(rule)
         } else if line.starts(with: "!") {
-            exceptions.append(Rule(raw: line))
+            let rule = Rule(raw: line)
+            exceptions[rule.getLastLabel(), default: []].append(rule)
         } else {
             basicRules.insert(String(line))
         }

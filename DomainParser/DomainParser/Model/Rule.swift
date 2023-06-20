@@ -33,6 +33,22 @@ struct Rule {
         /// Exceptions should have a higher Rank than regular rules
         rankingScore = (exception ? 1000 : 0) + parts.count
     }
+
+    func getLastLabel() -> String {
+        guard let lastLabel: RuleLabel = parts.last else {
+            return ""
+        }
+
+        switch lastLabel {
+        case let .text(labelText):
+            return labelText
+        case .wildcard:
+            // This case can't really happen for official PSL rules since a wildcard is allowed only in the first label,
+            // but the wildcard rule that has exactly one label (i.e. Rule: "*") is technically allowed.
+            // Also, this may be useful for custom user-added rules if we decide to support that.
+            return "*"
+        }
+    }
 }
 
 extension Rule {
@@ -74,7 +90,7 @@ extension Rule {
 
     /// ⚠️ Should be called only for host matching the rule
     func parse(hostLabels: [Substring]) -> ParsedHost {
-        let partsCount =  parts.count - (self.exception ? 1 : 0)
+        let partsCount = parts.count - (self.exception ? 1 : 0)
         let delta = hostLabels.count - partsCount
 
         let domain = delta == 0 ? nil : hostLabels.dropFirst(delta - 1).joined(separator: ".")
