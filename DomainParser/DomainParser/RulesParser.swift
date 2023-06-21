@@ -10,15 +10,20 @@ import Foundation
 
 
 struct ParsedRules {
-    let exceptions: Dictionary<String, Array<Rule>>
-    let wildcardRules: Dictionary<String, Array<Rule>>
+    /// Dictionary of rule arrays indexed by the last label of a rule.
+    let exceptions: [String: [Rule]]
+    /// Dictionary of rule arrays indexed by the last label of a rule.
+    let wildcardRules: [String: [Rule]]
+    /// Set of suffixes
     let basicRules: Set<String>
 }
 
 class RulesParser {
-    
-    var exceptions = Dictionary<String, Array<Rule>>()
-    var wildcardRules = Dictionary<String, Array<Rule>>()
+
+    /// Dictionary of rule arrays indexed by the last label of a rule.
+    var exceptions = [String: [Rule]]()
+    /// Dictionary of rule arrays indexed by the last label of a rule.
+    var wildcardRules = [String: [Rule]]()
     /// Set of suffixes
     var basicRules = Set<String>()
     
