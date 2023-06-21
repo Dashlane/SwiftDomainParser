@@ -9,7 +9,7 @@
 import Foundation
 
 enum DomainParserError: Error {
-    case parsingError(details: Error?)
+    case ruleParsingError(message: String)
 }
 
 /// Uses the public suffix list
@@ -52,14 +52,9 @@ public struct DomainParser: DomainParserProtocol {
         }
 
         let lastLabel = String(lastLabelSubstring)
-        var wildcardRulesForLabel: [Rule] = []
-        wildcardRulesForLabel.append(contentsOf: parsedRules.wildcardRules[lastLabel] ?? [])
-        wildcardRulesForLabel.append(contentsOf: parsedRules.wildcardRules["*"] ?? [])
-        wildcardRulesForLabel.sort(by: { $0 > $1 })
-
         let isMatching: (Rule) -> Bool = { $0.isMatching(hostLabels: hostComponents) }
         let rule = parsedRules.exceptions[lastLabel]?.first(where: isMatching) ??
-                   wildcardRulesForLabel.first(where: isMatching)
+                   parsedRules.wildcardRules[lastLabel]?.first(where: isMatching)
 
         return rule?.parse(hostLabels: hostComponents)
     }
