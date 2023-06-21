@@ -83,8 +83,6 @@ extension Rule {
         }
         return !zipped.contains(where: notMatchingClosure)
         #endif
-        
-       // return matching
     }
         
 
@@ -102,7 +100,7 @@ extension Rule {
 
 }
 
-/// MARK: - Comparable
+// MARK: - Comparable
 
 extension Rule: Comparable {
     static func < (lhs: Rule, rhs: Rule) -> Bool {

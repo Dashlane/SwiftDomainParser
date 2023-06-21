@@ -27,7 +27,7 @@ public struct DomainParser: DomainParserProtocol {
     public init(quickParsing: Bool = false) throws {
         let url = Bundle.current.url(forResource: "public_suffix_list", withExtension: "dat")!
         let data = try Data(contentsOf: url)
-        
+
         try self.init(rulesData: data, quickParsing: quickParsing)
     }
 

@@ -17,3 +17,11 @@ public struct ParsedHost {
     public let domain: String?
 
 }
+
+extension ParsedHost: Equatable {
+
+    public static func == (lhs: ParsedHost, rhs: ParsedHost) -> Bool {
+        return (lhs.publicSuffix == rhs.publicSuffix && lhs.domain == rhs.domain)
+    }
+
+}

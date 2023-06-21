@@ -6,7 +6,7 @@ let package = Package(
     name: "DomainParser",
     platforms: [
         .iOS(.v12),
-        .macOS(.v10_14)
+        .macOS(.v10_13)
     ],
     products: [
         .library(

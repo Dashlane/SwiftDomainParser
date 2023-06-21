@@ -164,6 +164,16 @@ class DomainParserTests: XCTestCase {
     }
 
 
+    func testTLDWithNoDomain() {
+        XCTAssertEqual(domainParser.parse(host: "com"), ParsedHost(publicSuffix: "com", domain: nil))
+        XCTAssertEqual(domainParser.parse(host: "co.uk"), ParsedHost(publicSuffix: "co.uk", domain: nil))
+        XCTAssertEqual(domainParser.parse(host: "ide.kyoto.jp"), ParsedHost(publicSuffix: "ide.kyoto.jp", domain: nil))
+
+        // Wildcard
+        XCTAssertEqual(domainParser.parse(host: "any.ck"), ParsedHost(publicSuffix: "any.ck", domain: nil))
+        XCTAssertEqual(domainParser.parse(host: "any.mm"), ParsedHost(publicSuffix: "any.mm", domain: nil))
+    }
+
     func testWildcardRulesSorting() {
         // From https://github.com/publicsuffix/list/wiki/Format#example
         let rulesArray = [
@@ -205,7 +215,7 @@ class DomainParserTests: XCTestCase {
 
         // Cookies may *not* be set for bar.tokyo.jp. (not valid domain)
         XCTAssertNil(customDomainParser.parse(host: "bar.tokyo.jp")?.domain)
-        
+
         // Cookies may be set for pref.hokkaido.jp because the exception overrides the previous rule. (valid domain)
         XCTAssertEqual(customDomainParser.parse(host: "pref.hokkaido.jp")?.domain, "pref.hokkaido.jp")
 
