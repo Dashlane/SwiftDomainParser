@@ -29,6 +29,7 @@
 		93B3C99425598A19007A6674 /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 93B3C99325598A19007A6674 /* public_suffix_list.dat */; };
 		93B3C99525598A19007A6674 /* public_suffix_list.dat in Resources */ = {isa = PBXBuildFile; fileRef = 93B3C99325598A19007A6674 /* public_suffix_list.dat */; };
 		A75E495E22259C4B00B3C15A /* RulesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7FFE69213F299100538E0B /* RulesParser.swift */; };
+		E20BAF312A38C00C00F1359F /* DomainParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF34FCBF29895905008E4392 /* DomainParserProtocol.swift */; };
 		EF34FCC029895905008E4392 /* DomainParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF34FCBF29895905008E4392 /* DomainParserProtocol.swift */; };
 /* End PBXBuildFile section */
 
@@ -348,6 +349,7 @@
 				1C75D2292100E2AD0057B32D /* Rule.swift in Sources */,
 				1C75D22E2100E2AD0057B32D /* ParsedHost.swift in Sources */,
 				A75E495E22259C4B00B3C15A /* RulesParser.swift in Sources */,
+				E20BAF312A38C00C00F1359F /* DomainParserProtocol.swift in Sources */,
 				1C75D22A2100E2AD0057B32D /* RuleLabel.swift in Sources */,
 				1C75D22F2100E2AD0057B32D /* Constant.swift in Sources */,
 				1C7FFE68213F295F00538E0B /* BasicRulesParser.swift in Sources */,
