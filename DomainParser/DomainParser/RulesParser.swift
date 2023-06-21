@@ -28,7 +28,7 @@ class RulesParser {
     var basicRules = Set<String>()
     
     /// Parse the Data to extract an array of Rules. The array is sorted by importance.
-    func parse(raw: Data) throws -> ParsedRules {
+    func parse(raw: Data, sortRules: Bool) throws -> ParsedRules {
         guard let rulesText = String(data: raw, encoding: .utf8) else {
             throw DomainParserError.ruleParsingError(message: "Can't parse rules data. Is it in UTF-8 format?")
         }
@@ -36,12 +36,14 @@ class RulesParser {
         let allRules = rulesText.split(separator: "\n")
         try allRules.forEach(parseRule)
 
-        // Sort the collections from big to small so that the highest priority rules are first.
-        self.wildcardRules = self.wildcardRules.mapValues { (rules: [Rule]) in
-            rules.sorted(by: { $0 > $1 })
-        }
-        self.exceptions = self.exceptions.mapValues { (rules: [Rule]) in
-            rules.sorted(by: { $0 > $1 })
+        if (sortRules) {
+            // Sort the collections from big to small so that the highest priority rules are first.
+            self.wildcardRules = self.wildcardRules.mapValues { (rules: [Rule]) in
+                rules.sorted(by: { $0 > $1 })
+            }
+            self.exceptions = self.exceptions.mapValues { (rules: [Rule]) in
+                rules.sorted(by: { $0 > $1 })
+            }
         }
 
         return ParsedRules.init(exceptions: self.exceptions,

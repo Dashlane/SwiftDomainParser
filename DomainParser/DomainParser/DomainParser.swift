@@ -28,11 +28,13 @@ public struct DomainParser: DomainParserProtocol {
         let url = Bundle.current.url(forResource: "public_suffix_list", withExtension: "dat")!
         let data = try Data(contentsOf: url)
 
-        try self.init(rulesData: data, quickParsing: quickParsing)
+        // We don't need to sort the rules from "public_suffix_list" since
+        // the file has already been sorted by the update script.
+        try self.init(rulesData: data, quickParsing: quickParsing, sortRules: false)
     }
 
-    init(rulesData: Data, quickParsing: Bool = false) throws {
-        parsedRules = try RulesParser().parse(raw: rulesData)
+    init(rulesData: Data, quickParsing: Bool = false, sortRules: Bool = true) throws {
+        parsedRules = try RulesParser().parse(raw: rulesData, sortRules: sortRules)
         basicDomainParser = BasicDomainParser(suffixes: parsedRules.basicRules)
         onlyBasicRules = quickParsing
     }

@@ -222,5 +222,22 @@ class DomainParserTests: XCTestCase {
         // Cookies may be set for metro.tokyo.jp, because the exception overrides the previous rule. (valid domain)
         XCTAssertEqual(customDomainParser.parse(host: "metro.tokyo.jp")?.domain, "metro.tokyo.jp")
     }
+
+    func checkRuleArrayIsSorted(lastLabel: String, ruleArray: [Rule]) {
+        let rulesAreSorted = zip(ruleArray, ruleArray.dropFirst()).allSatisfy(>=)
+        XCTAssertTrue(rulesAreSorted, "Rules for last-label \"\(lastLabel)\" are not sorted!")
+    }
+
+    func testParsedRulesFromLocalListAreSorted() {
+        // We want the rules to be sorted, but we do this operation in the update script as an optimization.
+        // So the parsed rules should be sorted because the rules file is sorted. Check this.
+
+        for (lastLabel, ruleArray) in domainParser.parsedRules.wildcardRules {
+            checkRuleArrayIsSorted(lastLabel: lastLabel, ruleArray: ruleArray)
+        }
+        for (lastLabel, ruleArray) in domainParser.parsedRules.exceptions {
+            checkRuleArrayIsSorted(lastLabel: lastLabel, ruleArray: ruleArray)
+        }
+    }
 }
 
