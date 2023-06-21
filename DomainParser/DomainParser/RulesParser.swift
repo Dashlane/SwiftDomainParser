@@ -37,10 +37,12 @@ class RulesParser {
             .forEach(parseRule)
 
         // Sort the collections from big to small so that the highest priority rules are first.
-        let ruleComparator = { (r1: Rule, r2: Rule) -> Bool in r1 > r2 }
-        let sortRulesTransform = { (rules: Array<Rule>) -> Array<Rule> in rules.sorted(by: ruleComparator) }
-        self.wildcardRules = self.wildcardRules.mapValues(sortRulesTransform)
-        self.exceptions = self.exceptions.mapValues(sortRulesTransform)
+        self.wildcardRules = self.wildcardRules.mapValues { (rules: [Rule]) in
+            rules.sorted(by: { $0 > $1 })
+        }
+        self.exceptions = self.exceptions.mapValues { (rules: [Rule]) in
+            rules.sorted(by: { $0 > $1 })
+        }
 
         return ParsedRules.init(exceptions: exceptions,
                                 wildcardRules: wildcardRules,
