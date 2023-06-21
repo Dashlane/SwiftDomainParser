@@ -130,5 +130,16 @@ class DomainParserTests: XCTestCase {
         guard let host = host else { return }
         XCTAssertEqual(domainParser.parse(host: host.lowercased())?.domain, expectedDomain, file: file, line: line)
     }
+
+
+    func testTLDWithNoDomain() {
+        XCTAssertEqual(domainParser.parse(host: "com"), ParsedHost(publicSuffix: "com", domain: nil))
+        XCTAssertEqual(domainParser.parse(host: "co.uk"), ParsedHost(publicSuffix: "co.uk", domain: nil))
+        XCTAssertEqual(domainParser.parse(host: "ide.kyoto.jp"), ParsedHost(publicSuffix: "ide.kyoto.jp", domain: nil))
+
+        // Wildcard
+        XCTAssertEqual(domainParser.parse(host: "any.ck"), ParsedHost(publicSuffix: "any.ck", domain: nil))
+        XCTAssertEqual(domainParser.parse(host: "any.mm"), ParsedHost(publicSuffix: "any.mm", domain: nil))
+    }
 }
 
