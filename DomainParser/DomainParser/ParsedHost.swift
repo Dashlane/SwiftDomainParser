@@ -10,8 +10,10 @@ import Foundation
 
 public struct ParsedHost {
 
+    /// E.g. "com", "co.uk"
     public let publicSuffix: String
-    /// Domain excluding subdomains
+
+    /// (Registrable) domain excluding subdomains. E.g. "github.com", "amazon.co.uk"
     public let domain: String?
 
 }

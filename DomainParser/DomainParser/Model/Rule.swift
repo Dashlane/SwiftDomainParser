@@ -72,7 +72,7 @@ extension Rule {
 
     /// ⚠️ Should be called only for host matching the rule
     func parse(hostLabels: [Substring]) -> ParsedHost {
-        let partsCount =  parts.count - (self.exception ? 1 : 0)
+        let partsCount = parts.count - (self.exception ? 1 : 0)
         let delta = hostLabels.count - partsCount
 
         let domain = delta == 0 ? nil : hostLabels.dropFirst(delta - 1).joined(separator: ".")

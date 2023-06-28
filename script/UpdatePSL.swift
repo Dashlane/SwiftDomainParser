@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 enum ErrorType: Error {
     case notUTF8Convertible(data: Data)
     case fetchingError(details: Error?)
@@ -28,7 +29,7 @@ struct PublicSuffistListFetcher {
                 guard let data = data else {
                     throw ErrorType.fetchingError(details: error)
                 }
-                try callback(.success(PublicSuffixListMinimifier(data: data).minimify()))
+                try callback(.success(PublicSuffixListNormalizer(data: data).normalize()))
             } catch {
                 callback(.error(error))
             }
@@ -36,9 +37,8 @@ struct PublicSuffistListFetcher {
     }
 }
 
-struct PublicSuffixListMinimifier {
 
-
+struct PublicSuffixListNormalizer {
     let data: Data
 
     init(data: Data) {
@@ -50,22 +50,29 @@ struct PublicSuffixListMinimifier {
         return !line.isEmpty && !line.starts(with: "//")
     }
 
-    func minimify() throws -> Data {
+    func normalize() throws -> Data {
         guard let stringifiedData = String.init(data: data, encoding: .utf8) else { throw ErrorType.notUTF8Convertible(data: data) }
 
         //  From `publicsuffix.org/list/` Each line is only read up to the first whitespace; entire lines can also be commented using //.
-        let validLinesArray = stringifiedData.components(separatedBy: .newlines)
+        var validLinesArray = stringifiedData.components(separatedBy: .newlines)
             .map { $0.trimmingCharacters(in: CharacterSet.whitespaces) }
             .compactMap { $0.components(separatedBy: CharacterSet.whitespaces).first }
             /// Filter out useless Lines (Comments or empty ones)
             .filter(isLineValid)
+
+        // The rules with more labels are higher priority. We want them to appear earlier in the list.
+        validLinesArray.sort {
+            $0.split(separator: ".").count > $1.split(separator: ".").count
+        }
 
         return validLinesArray.joined(separator: "\n").data(using: .utf8)!
     }
 }
 
 
-
+func showError(error: Error) {
+    print("Unexpected Error occured: \(error)")
+}
 
 
 func main() {
@@ -92,10 +99,6 @@ func main() {
     }
     /// Wait for the Async Task finish
     sema.wait()
-}
-
-func showError(error: Error) {
-    print("Unexpected Error occured: \(error)")
 }
 
 main()

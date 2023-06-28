@@ -28,6 +28,38 @@ class DomainParserTests: XCTestCase {
             testPSL()
         }
     }
+
+    func testMeasureParseManyWildcardAndExceptionRules() {
+        let alphabet = "abcdefghijklmnopqrstuvwxyz"
+        var rulesArray: [String] = []
+
+        // Add a lot of wildcard and exception rules.
+        for letter1 in alphabet {
+            for letter2 in alphabet {
+                rulesArray.append("*.\(letter1)\(letter2)")
+                rulesArray.append("!except.\(letter1)\(letter2)")
+            }
+        }
+
+        let rulesText = rulesArray.joined(separator: "\n")
+        let rulesData = rulesText.data(using: .utf8)!
+        let customDomainParser = try! DomainParser.init(rulesData: rulesData)
+
+        // Just checking that we are using a custom suffix rule set. This would be a valid domain normally.
+        XCTAssertNil(customDomainParser.parse(host: "google.fr")?.domain)
+
+
+        self.measure {
+            for _ in 0...10 {
+                XCTAssertEqual(customDomainParser.parse(host: "domain.any.ky")?.domain, "domain.any.ky")
+                XCTAssertEqual(customDomainParser.parse(host: "except.ky")?.domain, "except.ky")
+                XCTAssertEqual(customDomainParser.parse(host: "domain.any.tz")?.domain, "domain.any.tz")
+                XCTAssertEqual(customDomainParser.parse(host: "except.tz")?.domain, "except.tz")
+                XCTAssertEqual(customDomainParser.parse(host: "domain.any.nf")?.domain, "domain.any.nf")
+                XCTAssertEqual(customDomainParser.parse(host: "except.nf")?.domain, "except.nf")
+            }
+        }
+    }
     
 
     /// Common PSL Unit test. For a given host check if it returns the expected registrable domain
@@ -140,6 +172,72 @@ class DomainParserTests: XCTestCase {
         // Wildcard
         XCTAssertEqual(domainParser.parse(host: "any.ck"), ParsedHost(publicSuffix: "any.ck", domain: nil))
         XCTAssertEqual(domainParser.parse(host: "any.mm"), ParsedHost(publicSuffix: "any.mm", domain: nil))
+    }
+
+    func testWildcardRulesSorting() {
+        // From https://github.com/publicsuffix/list/wiki/Format#example
+        let rulesArray = [
+            "com",
+            "*.jp",
+            "*.hokkaido.jp",
+            "*.tokyo.jp",
+            "!pref.hokkaido.jp",
+            "!metro.tokyo.jp",
+        ]
+
+        let rulesText = rulesArray.joined(separator: "\n")
+        let rulesData = rulesText.data(using: .utf8)!
+        let customDomainParser = try! DomainParser.init(rulesData: rulesData)
+
+        // Just checking that we are using a custom suffix rule set. This would be a valid domain normally.
+        XCTAssertNil(customDomainParser.parse(host: "google.fr")?.domain)
+
+
+        // From https://github.com/publicsuffix/list/wiki/Format#example
+
+        // Cookies may be set for foo.com. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.com")?.domain, "foo.com")
+
+        // Cookies may be set for foo.bar.jp. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.bar.jp")?.domain, "foo.bar.jp")
+
+        // Cookies may *not* be set for bar.jp. (not valid domain)
+        XCTAssertNil(customDomainParser.parse(host: "bar.jp")?.domain)
+
+        // Cookies may be set for foo.bar.hokkaido.jp. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.bar.hokkaido.jp")?.domain, "foo.bar.hokkaido.jp")
+
+        // Cookies may *not* be set for bar.hokkaido.jp. (not valid domain)
+        XCTAssertNil(customDomainParser.parse(host: "bar.hokkaido.jp")?.domain)
+
+        // Cookies may be set for foo.bar.tokyo.jp. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "foo.bar.tokyo.jp")?.domain, "foo.bar.tokyo.jp")
+
+        // Cookies may *not* be set for bar.tokyo.jp. (not valid domain)
+        XCTAssertNil(customDomainParser.parse(host: "bar.tokyo.jp")?.domain)
+
+        // Cookies may be set for pref.hokkaido.jp because the exception overrides the previous rule. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "pref.hokkaido.jp")?.domain, "pref.hokkaido.jp")
+
+        // Cookies may be set for metro.tokyo.jp, because the exception overrides the previous rule. (valid domain)
+        XCTAssertEqual(customDomainParser.parse(host: "metro.tokyo.jp")?.domain, "metro.tokyo.jp")
+    }
+
+    func checkRuleArrayIsSorted(lastLabel: String, ruleArray: [Rule]) {
+        let rulesAreSorted = zip(ruleArray, ruleArray.dropFirst()).allSatisfy(>=)
+        XCTAssertTrue(rulesAreSorted, "Rules for last-label \"\(lastLabel)\" are not sorted!")
+    }
+
+    func testParsedRulesFromLocalListAreSorted() {
+        // We want the rules to be sorted, but we do this operation in the update script as an optimization.
+        // So the parsed rules should be sorted because the rules file is sorted. Check this.
+
+        for (lastLabel, ruleArray) in domainParser.parsedRules.wildcardRules {
+            checkRuleArrayIsSorted(lastLabel: lastLabel, ruleArray: ruleArray)
+        }
+        for (lastLabel, ruleArray) in domainParser.parsedRules.exceptions {
+            checkRuleArrayIsSorted(lastLabel: lastLabel, ruleArray: ruleArray)
+        }
     }
 }
 
